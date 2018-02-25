@@ -3,6 +3,16 @@ const  hbs = require('hbs');
 
 var app =express();
 hbs.registerPartials(__dirname+'/views/partials');
+
+
+hbs.registerHelper('currentYear', ()=>{
+    return new Date().getFullYear();
+})
+
+hbs.registerHelper('screamIt', (text)=>{
+    return text.toUpperCase();
+});
+
 app.use(express.static( __dirname+"/public/"));
 app.set('view engine', 'hbs');
 
@@ -10,7 +20,6 @@ app.set('view engine', 'hbs');
 app.get('/', (req, res)=>{
 res.render('home.hbs',{
   pageTitle:"Home Page",
-  currentYear: new Date().getFullYear(),
   welcomeMessage :"Welcome to the Home Page"
 });
 });
@@ -18,8 +27,7 @@ res.render('home.hbs',{
 app.get("/about", (req, res)=>{
  // res.send("<h1>This is About Page</h1>")
     res.render('about.hbs',{
-        pageTitle:"About Page", 
-        currentYear: new Date().getFullYear()
+        pageTitle:"About Page"
     });
 })
 app.get("/bad", (req, res)=>{
