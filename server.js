@@ -13,9 +13,22 @@ hbs.registerHelper('screamIt', (text)=>{
     return text.toUpperCase();
 });
 
-app.use(express.static( __dirname+"/public/"));
-app.set('view engine', 'hbs');
+//Logger Middleware
+app.use((req, res, next)=>{
+    var now = new  Date().toString();
+    console.log("Access Time : ", now);
 
+    console.log("Request : ", req.hostname);
+    next();
+});
+
+//Maintenance Middleware
+// app.use((req, res, next)=>{
+//     res.render('maintenance.hbs')
+// });
+
+app.set('view engine', 'hbs');
+app.use(express.static( __dirname+"/public/"));
 
 app.get('/', (req, res)=>{
 res.render('home.hbs',{
