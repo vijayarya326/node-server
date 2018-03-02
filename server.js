@@ -11,7 +11,16 @@ hbs.registerHelper('currentYear', ()=>{
 
 hbs.registerHelper('screamIt', (text)=>{
     return text.toUpperCase();
+}); 
+//Register Coustom Middleware
+app.use((req, res, next)=>{ 
+    var now = new Date().toDateString();
+    console.log("Start Time : ", now );
+    console.log("Method : ", req.method);
+    console.log("URL : ",  req.url);
+    next(); 
 });
+
 
 app.use(express.static( __dirname+"/public/"));
 app.set('view engine', 'hbs');
